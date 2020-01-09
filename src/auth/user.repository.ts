@@ -6,7 +6,9 @@ import * as bcrypt from 'bcrypt';
 
 @EntityRepository(User)
 export class UserRepository extends Repository<User> {
-    async signUp({ username, password }: AuthCredentialsDto): Promise<void> {
+    async signUp(
+        { username, password }: AuthCredentialsDto
+    ): Promise<void> {
         const salt = await bcrypt.genSalt();
 
         const user = new User();
@@ -27,9 +29,13 @@ export class UserRepository extends Repository<User> {
         }
     }
 
-    async validateUserPassword({username, password}: AuthCredentialsDto): Promise<string> {
+    async validateUserPassword(
+        { username, password }: AuthCredentialsDto
+    ): Promise<string> {
+        // find user based on username
         const user = await this.findOne({ username });
 
+        // with the password provided we need to compare that to the hashed password in the db, we do this by calling the method supplied in the User entity
         if (user && await user.validatePassword(password)) {
             return user.username;
         }
@@ -37,7 +43,11 @@ export class UserRepository extends Repository<User> {
         return null;
     }
 
-    private async hashPassword(password: string, salt: string): Promise<string> {
+    private async hashPassword(
+        password: string,
+        salt: string
+    ): Promise<string> {
+        // the salt is a random string generated as well as the jwt
         return bcrypt.hash(password, salt);
     }
 }
