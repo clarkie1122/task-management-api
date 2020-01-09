@@ -1,7 +1,7 @@
 import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
 import { Logger } from '@nestjs/common';
 import * as config from 'config';
+import { AppModule } from './app.module';
 
 async function bootstrap() {
   // get server config from yml

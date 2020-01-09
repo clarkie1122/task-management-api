@@ -1,10 +1,10 @@
 import { Repository, EntityRepository } from "typeorm";
+import { Logger, InternalServerErrorException } from "@nestjs/common";
 import { Task } from "./task.entity";
 import { CreateTaskDto } from "./dto/create-task.dto";
 import { TaskStatus } from "./task-status.enum";
 import { GetTasksFilterDto } from "./dto/get-tasks-filter.dto";
 import { User } from "src/auth/user.entity";
-import { Logger, InternalServerErrorException } from "@nestjs/common";
 
 // In each repository you need to supply the entity that you will be communicating with
 @EntityRepository(Task)
