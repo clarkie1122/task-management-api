@@ -3,15 +3,20 @@ import { TaskDto } from "./task.graphql.schema";
 import { TaskService } from "./task.service";
 import { CreateTaskDto } from "./dto/create-task.dto";
 import { UpdateTaskDto } from "./dto/update-task.dto";
+import { UseGuards, Req } from "@nestjs/common";
+import { AuthGuard } from "@nestjs/passport";
+import { Request } from "graphql-tools";
 
 @Resolver(of => TaskDto)
+@UseGuards(AuthGuard())
 export class TaskResolver {
     constructor(
         private readonly taskService: TaskService
     ) { }
 
     @Query(() => [TaskDto])
-    async tasks() {
+    async tasks(@Req() req: Request) {
+        console.log(req);
         return await this.taskService.findAll();
     }
 

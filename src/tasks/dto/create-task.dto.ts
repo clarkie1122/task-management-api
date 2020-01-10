@@ -1,6 +1,6 @@
 import { IsNotEmpty } from 'class-validator';
 import { Field, InputType } from 'type-graphql';
-import { TaskStatus } from 'src/tasks/task-status.enum';
+import { TaskStatus } from '../task-status.enum';
 
 @InputType()
 export class CreateTaskDto {

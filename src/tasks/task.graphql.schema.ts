@@ -1,5 +1,5 @@
 import { Field, Int, ObjectType } from 'type-graphql';
-import { TaskStatus } from 'src/tasks/task-status.enum';
+import { TaskStatus } from './task-status.enum';
 
 @ObjectType()
 export class TaskDto {
