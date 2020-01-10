@@ -3,7 +3,7 @@ import { TaskStatus } from "./task-status.enum";
 import { User } from "src/auth/user.entity";
 
 @Entity()
-export class Task extends BaseEntity {
+export class TaskEntity extends BaseEntity {
     @PrimaryGeneratedColumn()
     id: number;
 
@@ -15,10 +15,4 @@ export class Task extends BaseEntity {
 
     @Column()
     status: TaskStatus;
-
-    @ManyToOne(type => User, user => user.tasks, { eager: false })
-    user: User;
-
-    @Column()
-    userId: number;
 }

@@ -9,6 +9,12 @@ import { GraphQLModule } from '@nestjs/graphql';
   imports: [
     GraphQLModule.forRoot({
       autoSchemaFile: 'schema.gql',
+      installSubscriptionHandlers: true,
+      context: ({ req }) => {
+        return {
+          request: req
+        }
+      }
     }),
     TasksModule,
     TypeOrmModule.forRoot(typeOrmConfig),

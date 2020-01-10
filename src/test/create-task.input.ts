@@ -2,11 +2,8 @@ import { Field, Int, ObjectType, InputType } from 'type-graphql';
 import { TaskStatus } from 'src/tasks/task-status.enum';
 import { User } from './user.graphql.schema';
 
-@ObjectType()
-export class TaskDto {
-  @Field(type => Int)
-  id: number;
-
+@InputType()
+export class CreateTaskInput {
   @Field(type => String)
   title: string;
 

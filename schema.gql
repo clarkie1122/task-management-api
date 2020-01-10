@@ -3,22 +3,25 @@
 # !!!   DO NOT MODIFY THIS FILE BY YOURSELF   !!!
 # -----------------------------------------------
 
-type Query {
-  tasks: [Task!]!
-  task(id: Float!): Task!
+input CreateTaskInput {
+  title: String!
+  description: String!
+  status: String!
 }
 
-type Task {
+type Mutation {
+  createTask(createTask: CreateTaskInput!): TaskDto!
+  removeTask(id: Float!): TaskDto!
+}
+
+type Query {
+  tasks: [TaskDto!]!
+  task(id: Float!): TaskDto!
+}
+
+type TaskDto {
   id: Int!
   title: String!
   description: String!
-  user: User!
-}
-
-type User {
-  id: Int!
-  username: String!
-  password: String!
-  salt: String!
-  tasks: [Task!]!
+  status: String!
 }

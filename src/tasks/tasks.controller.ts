@@ -4,7 +4,7 @@ import { TasksService } from './tasks.service';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { GetTasksFilterDto } from './dto/get-tasks-filter.dto';
 import { TaskStatusValidationPipe } from './pipes/task-status-validation.pipe';
-import { Task } from './task.entity';
+import { TaskEntity } from './task.entity';
 import { TaskStatus } from './task-status.enum';
 import { User } from 'src/auth/user.entity';
 import { GetUser } from 'src/auth/get-user.decorator';
@@ -24,16 +24,16 @@ export class TasksController {
     getTasks(
         @Query(ValidationPipe) filterDto: GetTasksFilterDto,  // will make sure all the validation information in the entity is supplied correctly
         @GetUser() user: User // customer decorator for getting the user object from the access token in the request
-    ): Promise<Task[]> {
+    ){
         this.logger.verbose(`User "${user.username}"  retrieving all tasks. Filters: ${JSON.stringify(filterDto)}`)
-        return this.tasksService.getTasks(filterDto, user);
+        // return this.tasksService.getTasks(filterDto, user);
     }
 
     @Get('/:id')
     getTaskById(
         @Param('id', ParseIntPipe) id: number, // parse pipe is shipped with nest, it will make sure the string provided can be converted to an int
         @GetUser() user: User // customer decorator for getting the user object from the access token in the request
-    ): Promise<Task> {
+    ): Promise<TaskEntity> {
         return this.tasksService.getTaskById(id, user);
     }
 
@@ -42,9 +42,9 @@ export class TasksController {
     createTask(
         @Body() createTaskDto: CreateTaskDto,
         @GetUser() user: User // customer decorator for getting the user object from the access token in the request
-    ): Promise<Task> {
+    ) {
         this.logger.verbose(`User "${user.username}" creating new task. Data: ${JSON.stringify(createTaskDto)}`);
-        return this.tasksService.createTask(createTaskDto, user);
+        // return this.tasksService.createTask(createTaskDto, user);
     }
 
     @Delete('/:id')
@@ -60,7 +60,7 @@ export class TasksController {
         @Param('id', ParseIntPipe) id: number, // parse pipe is shipped with nest, it will make sure the string provided can be converted to an int
         @Body('status', TaskStatusValidationPipe) status: TaskStatus, // custom validation pipe to make sure the status provided is in the enum list
         @GetUser() user: User // customer decorator for getting the user object from the access token in the request
-    ): Promise<Task> {
+    ): Promise<TaskEntity> {
         return this.tasksService.updateTaskStatus(id, status, user);
     }
 }
