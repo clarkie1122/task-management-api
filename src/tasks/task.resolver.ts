@@ -1,11 +1,8 @@
 import { Resolver, Query, Args, Mutation } from "@nestjs/graphql";
 import { TaskDto } from "./task.graphql.schema";
 import { TaskService } from "./task.service";
-import { GetUser } from "src/auth/get-user.decorator";
-import { User } from "./user.graphql.schema";
-import { UseGuards } from "@nestjs/common";
-import { AuthGuard } from "@nestjs/passport";
-import { CreateTaskInput } from "./create-task.input";
+import { CreateTaskDto } from "./dto/create-task.dto";
+import { UpdateTaskDto } from "./dto/update-task.dto";
 
 @Resolver(of => TaskDto)
 export class TaskResolver {
@@ -27,7 +24,7 @@ export class TaskResolver {
 
     @Mutation(() => TaskDto)
     async createTask(
-        @Args('createTask') task: CreateTaskInput
+        @Args('createTask') task: CreateTaskDto
     ) {
         return await this.taskService.createOne(task)
     }
@@ -37,5 +34,12 @@ export class TaskResolver {
         @Args({ name: 'id', type: () => Number }) id: number
     ) {
         return await this.taskService.removeOne(id);
+    }
+
+    @Mutation(() => TaskDto)
+    async updateTask(
+        @Args('updateTask') task: UpdateTaskDto
+    ) {
+        return await this.taskService.updateOne(task)
     }
 }

@@ -3,15 +3,16 @@
 # !!!   DO NOT MODIFY THIS FILE BY YOURSELF   !!!
 # -----------------------------------------------
 
-input CreateTaskInput {
+input CreateTaskDto {
   title: String!
   description: String!
   status: String!
 }
 
 type Mutation {
-  createTask(createTask: CreateTaskInput!): TaskDto!
+  createTask(createTask: CreateTaskDto!): TaskDto!
   removeTask(id: Float!): TaskDto!
+  updateTask(updateTask: UpdateTaskDto!): TaskDto!
 }
 
 type Query {
@@ -24,4 +25,11 @@ type TaskDto {
   title: String!
   description: String!
   status: String!
+}
+
+input UpdateTaskDto {
+  id: Float!
+  title: String
+  description: String
+  status: String
 }

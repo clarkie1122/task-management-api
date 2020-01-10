@@ -1,8 +1,18 @@
 import { IsNotEmpty } from 'class-validator';
+import { Field, InputType } from 'type-graphql';
+import { TaskStatus } from 'src/tasks/task-status.enum';
 
+@InputType()
 export class CreateTaskDto {
-    @IsNotEmpty()
-    title: string;
-    @IsNotEmpty()
-    description: string;
+  @Field(type => String)
+  @IsNotEmpty()
+  title: string;
+
+  @Field(type => String)
+  @IsNotEmpty()
+  description: string;
+
+  @Field(type => String)
+  @IsNotEmpty()
+  status: TaskStatus;
 }
