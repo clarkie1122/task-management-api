@@ -5,8 +5,8 @@ import { TaskService } from "./task.service";
 import { CreateTaskDto } from "./dto/create-task.dto";
 import { UpdateTaskDto } from "./dto/update-task.dto";
 import { GqlAuthGuard } from '../auth/gql-auth-guard';
-import { User } from "../auth/user.graphql.schema";
 import { GetUser } from "../auth/get-user.decorator";
+import { User } from "src/auth/user.entity";
 
 @Resolver(of => TaskDto)
 @UseGuards(GqlAuthGuard)
@@ -29,9 +29,10 @@ export class TaskResolver {
 
     @Mutation(() => TaskDto)
     async createTask(
-        @Args('createTask') task: CreateTaskDto
+        @Args('createTask') task: CreateTaskDto,
+        @GetUser() user: User
     ) {
-        return await this.taskService.createOne(task)
+        return await this.taskService.createOne(task, user)
     }
 
     @Mutation(() => TaskDto)

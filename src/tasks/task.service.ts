@@ -4,7 +4,7 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { CreateTaskDto } from "./dto/create-task.dto";
 import { TaskEntity } from "./task.entity";
 import { UpdateTaskDto } from "./dto/update-task.dto";
-import { User } from "src/auth/user.graphql.schema";
+import { User } from "src/auth/user.entity";
 
 @Injectable()
 export class TaskService {
@@ -27,12 +27,13 @@ export class TaskService {
         return task;
     }
 
-    async createOne(taskDto: CreateTaskDto): Promise<TaskEntity> {
+    async createOne(taskDto: CreateTaskDto, user: User): Promise<TaskEntity> {
         let task = new TaskEntity();
 
         task.title = taskDto.title;
         task.description = taskDto.description;
         task.status = taskDto.status;
+        task.user = user;
 
         await this.TaskRepository.save(task);
 
