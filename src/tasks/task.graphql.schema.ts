@@ -1,4 +1,4 @@
-import { Field, Int, ObjectType } from 'type-graphql';
+import { Field, Int, ObjectType, InputType } from 'type-graphql';
 import { TaskStatus } from './task-status.enum';
 
 @ObjectType()

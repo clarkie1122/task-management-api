@@ -1,22 +1,22 @@
 import { Resolver, Query, Args, Mutation } from "@nestjs/graphql";
+import { UseGuards, Req } from "@nestjs/common";
 import { TaskDto } from "./task.graphql.schema";
 import { TaskService } from "./task.service";
 import { CreateTaskDto } from "./dto/create-task.dto";
 import { UpdateTaskDto } from "./dto/update-task.dto";
-import { UseGuards, Req } from "@nestjs/common";
-import { AuthGuard } from "@nestjs/passport";
-import { Request } from "graphql-tools";
+import { GqlAuthGuard } from '../auth/gql-auth-guard';
+import { User } from "../auth/user.graphql.schema";
+import { GetUser } from "../auth/get-user.decorator";
 
 @Resolver(of => TaskDto)
-@UseGuards(AuthGuard())
+@UseGuards(GqlAuthGuard)
 export class TaskResolver {
     constructor(
         private readonly taskService: TaskService
     ) { }
 
     @Query(() => [TaskDto])
-    async tasks(@Req() req: Request) {
-        console.log(req);
+    async tasks(@GetUser() user: User) {
         return await this.taskService.findAll();
     }
 

@@ -33,3 +33,17 @@ input UpdateTaskDto {
   description: String
   status: String
 }
+
+input user {
+  id: Int!
+  username: String!
+  password: String!
+  salt: String!
+}
+
+type User {
+  id: Int!
+  username: String!
+  password: String!
+  salt: String!
+}

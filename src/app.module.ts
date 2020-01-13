@@ -12,7 +12,7 @@ import { GraphQLModule } from '@nestjs/graphql';
       installSubscriptionHandlers: true,
       context: ({ req }) => {
         return {
-          request: req
+          req
         }
       }
     }),
