@@ -17,7 +17,7 @@ export class TaskResolver {
 
     @Query(() => [TaskDto])
     async tasks(@GetUser() user: User) {
-        return await this.taskService.findAll();
+        return await this.taskService.findAll(user);
     }
 
     @Query(() => TaskDto)

@@ -25,6 +25,15 @@ type TaskDto {
   title: String!
   description: String!
   status: String!
+  user: User!
+}
+
+input tasks {
+  id: Int!
+  title: String!
+  description: String!
+  status: String!
+  user: user!
 }
 
 input UpdateTaskDto {
@@ -39,6 +48,7 @@ input user {
   username: String!
   password: String!
   salt: String!
+  tasks: [tasks!]!
 }
 
 type User {
@@ -46,4 +56,5 @@ type User {
   username: String!
   password: String!
   salt: String!
+  tasks: [TaskDto!]!
 }

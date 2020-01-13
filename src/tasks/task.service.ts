@@ -4,13 +4,17 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { CreateTaskDto } from "./dto/create-task.dto";
 import { TaskEntity } from "./task.entity";
 import { UpdateTaskDto } from "./dto/update-task.dto";
+import { User } from "src/auth/user.graphql.schema";
 
 @Injectable()
 export class TaskService {
     constructor(@InjectRepository(TaskEntity) private readonly TaskRepository: Repository<TaskEntity>) { }
 
-    async findAll(): Promise<TaskEntity[]> {
-        return await this.TaskRepository.find();
+    async findAll(user: User): Promise<TaskEntity[]> {
+        return await this.TaskRepository.find({
+            relations: ['user'],
+            where: { task: { id: user.id } }
+        });
     }
 
     async findOne(id: number): Promise<TaskEntity> {

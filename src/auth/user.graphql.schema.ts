@@ -1,4 +1,5 @@
 import { Field, Int, ObjectType, InputType } from 'type-graphql';
+import { TaskDto } from 'src/tasks/task.graphql.schema';
 
 @ObjectType()
 @InputType('user')
@@ -14,4 +15,7 @@ export class User {
 
   @Field(type => String)
   salt: string;
+
+  @Field(type => [TaskDto])
+  tasks: TaskDto[];
 }
