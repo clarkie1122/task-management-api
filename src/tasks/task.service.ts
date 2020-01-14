@@ -8,7 +8,9 @@ import { User } from "../auth/user.entity";
 
 @Injectable()
 export class TaskService {
-    constructor(@InjectRepository(TaskEntity) private readonly TaskRepository: Repository<TaskEntity>) { }
+    constructor(
+        @InjectRepository(TaskEntity) private readonly TaskRepository: Repository<TaskEntity>
+    ) { }
 
     async findAll(
         user: User

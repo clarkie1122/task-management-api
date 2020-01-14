@@ -1,5 +1,5 @@
 import { Resolver, Query, Args, Mutation } from "@nestjs/graphql";
-import { UseGuards, Req } from "@nestjs/common";
+import { UseGuards, Req, ValidationPipe } from "@nestjs/common";
 import { TaskDto } from "./task.graphql.schema";
 import { TaskService } from "./task.service";
 import { CreateTaskDto } from "./dto/create-task.dto";
@@ -32,7 +32,7 @@ export class TaskResolver {
 
     @Mutation(() => TaskDto)
     async createTask(
-        @Args('createTask') task: CreateTaskDto,
+        @Args('createTask', ValidationPipe) task: CreateTaskDto,
         @GetUser() user: User
     ) {
         return await this.taskService.createOne(task, user)
@@ -48,7 +48,7 @@ export class TaskResolver {
 
     @Mutation(() => TaskDto)
     async updateTask(
-        @Args('updateTask') task: UpdateTaskDto,
+        @Args('updateTask', ValidationPipe) task: UpdateTaskDto,
         @GetUser() user: User
     ) {
         return await this.taskService.updateOne(task, user)
