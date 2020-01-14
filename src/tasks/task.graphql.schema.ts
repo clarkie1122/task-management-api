@@ -1,6 +1,6 @@
 import { Field, Int, ObjectType, InputType } from 'type-graphql';
 import { TaskStatus } from './task-status.enum';
-import { User } from 'src/auth/user.graphql.schema';
+import { User } from '../auth/user.graphql.schema';
 
 @ObjectType()
 @InputType('tasks')
