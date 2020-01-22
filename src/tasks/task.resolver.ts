@@ -16,41 +16,41 @@ export class TaskResolver {
     ) { }
 
     @Query(() => [TaskDto])
-    async tasks(
-        @GetUser() user: User
-    ) {
-        return await this.taskService.findAll(user);
+    async tasks() {
+        console.log('GraphQL Query Hit - tasks');
+        return this.taskService.findAll();
+
     }
 
-    @Query(() => TaskDto)
-    async task(
-        @Args({ name: 'id', type: () => Number }) id: number,
-        @GetUser() user: User
-    ) {
-        return await this.taskService.findOne(id, user);
-    }
+    // @Query(() => TaskDto)
+    // async task(
+    //     @Args({ name: 'id', type: () => Number }) id: number,
+    //     @GetUser() user: User
+    // ) {
+    //     return await this.taskService.findOne(id, user);
+    // }
 
-    @Mutation(() => TaskDto)
-    async createTask(
-        @Args('createTask', ValidationPipe) task: CreateTaskDto,
-        @GetUser() user: User
-    ) {
-        return await this.taskService.createOne(task, user)
-    }
+    // @Mutation(() => TaskDto)
+    // async createTask(
+    //     @Args('createTask', ValidationPipe) task: CreateTaskDto,
+    //     @GetUser() user: User
+    // ) {
+    //     return await this.taskService.createOne(task, user)
+    // }
 
-    @Mutation(() => TaskDto)
-    async removeTask(
-        @Args({ name: 'id', type: () => Number }) id: number,
-        @GetUser() user: User
-    ) {
-        return await this.taskService.removeOne(id, user);
-    }
+    // @Mutation(() => TaskDto)
+    // async removeTask(
+    //     @Args({ name: 'id', type: () => Number }) id: number,
+    //     @GetUser() user: User
+    // ) {
+    //     return await this.taskService.removeOne(id, user);
+    // }
 
-    @Mutation(() => TaskDto)
-    async updateTask(
-        @Args('updateTask', ValidationPipe) task: UpdateTaskDto,
-        @GetUser() user: User
-    ) {
-        return await this.taskService.updateOne(task, user)
-    }
+    // @Mutation(() => TaskDto)
+    // async updateTask(
+    //     @Args('updateTask', ValidationPipe) task: UpdateTaskDto,
+    //     @GetUser() user: User
+    // ) {
+    //     return await this.taskService.updateOne(task, user)
+    // }
 }
