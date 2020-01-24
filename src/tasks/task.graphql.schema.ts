@@ -1,6 +1,5 @@
 import { Field, Int, ObjectType, InputType } from 'type-graphql';
-import { TaskStatus } from './task-status.enum';
-import { User } from '../auth/user.graphql.schema';
+import { UserDto, TaskStatus } from '@inteck/global-components';
 
 @ObjectType()
 @InputType('tasks')
@@ -17,6 +16,6 @@ export class TaskDto {
   @Field(type => String)
   status: TaskStatus;
 
-  @Field(type => User)
-  user: User;
+  @Field(type => UserDto)
+  user: UserDto;
 }

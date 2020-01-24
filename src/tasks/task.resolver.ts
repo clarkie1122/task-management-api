@@ -1,12 +1,10 @@
 import { Resolver, Query, Args, Mutation } from "@nestjs/graphql";
-import { UseGuards, Req, ValidationPipe } from "@nestjs/common";
-import { TaskDto } from "./task.graphql.schema";
+import { UseGuards, ValidationPipe } from "@nestjs/common";
+import { UserEntity, TaskDto, CreateTaskDto, UpdateTaskDto } from '@inteck/global-components'
+
 import { TaskService } from "./task.service";
-import { CreateTaskDto } from "./dto/create-task.dto";
-import { UpdateTaskDto } from "./dto/update-task.dto";
 import { GqlAuthGuard } from '../auth/gql-auth-guard';
 import { GetUser } from "../auth/get-user.decorator";
-import { User } from "../auth/user.entity";
 
 @Resolver(of => TaskDto)
 @UseGuards(GqlAuthGuard)
@@ -17,40 +15,39 @@ export class TaskResolver {
 
     @Query(() => [TaskDto])
     async tasks() {
-        console.log('GraphQL Query Hit - tasks');
         return this.taskService.findAll();
-
     }
 
-    // @Query(() => TaskDto)
-    // async task(
-    //     @Args({ name: 'id', type: () => Number }) id: number,
-    //     @GetUser() user: User
-    // ) {
-    //     return await this.taskService.findOne(id, user);
-    // }
+    @Mutation(() => TaskDto)
+    async createTask(
+        @Args('createTask', ValidationPipe) task: CreateTaskDto,
+        @GetUser() user: UserEntity
+    ) {
 
-    // @Mutation(() => TaskDto)
-    // async createTask(
-    //     @Args('createTask', ValidationPipe) task: CreateTaskDto,
-    //     @GetUser() user: User
-    // ) {
-    //     return await this.taskService.createOne(task, user)
-    // }
+        return await this.taskService.createOne(task, user)
+    }
 
-    // @Mutation(() => TaskDto)
-    // async removeTask(
-    //     @Args({ name: 'id', type: () => Number }) id: number,
-    //     @GetUser() user: User
-    // ) {
-    //     return await this.taskService.removeOne(id, user);
-    // }
+    @Query(() => TaskDto)
+    async task(
+        @Args({ name: 'id', type: () => Number }) id: number,
+        @GetUser() user: UserEntity
+    ) {
+        return await this.taskService.findOne(id, user);
+    }
 
-    // @Mutation(() => TaskDto)
-    // async updateTask(
-    //     @Args('updateTask', ValidationPipe) task: UpdateTaskDto,
-    //     @GetUser() user: User
-    // ) {
-    //     return await this.taskService.updateOne(task, user)
-    // }
+    @Mutation(() => TaskDto)
+    async removeTask(
+        @Args({ name: 'id', type: () => Number }) id: number,
+        @GetUser() user: UserEntity
+    ) {
+        return await this.taskService.removeOne(id, user);
+    }
+
+    @Mutation(() => TaskDto)
+    async updateTask(
+        @Args('updateTask', ValidationPipe) task: UpdateTaskDto,
+        @GetUser() user: UserEntity
+    ) {
+        return await this.taskService.updateOne(task, user)
+    }
 }

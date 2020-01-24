@@ -1,5 +1,5 @@
 import { PipeTransform, ArgumentMetadata, BadRequestException } from "@nestjs/common";
-import { TaskStatus } from "../task-status.enum";
+import { TaskStatus } from "@inteck/global-components";
 
 // example of custom pipe - This isn't being used but is here for reference
 export class TaskStatusValidationPipe implements PipeTransform {

@@ -1,5 +1,5 @@
 import { Field, Int, ObjectType, InputType } from 'type-graphql';
-import { TaskDto } from '../tasks/task.graphql.schema';
+import { TaskDto } from '@inteck/global-components';
 
 @ObjectType()
 @InputType('user')

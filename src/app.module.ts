@@ -1,9 +1,10 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { typeOrmConfig } from './config/typeorm.config';
-import { AuthModule } from './auth/auth.module';
-import { TasksModule } from './tasks/tasks.module';
 import { GraphQLModule } from '@nestjs/graphql';
+
+import { TasksModule } from './tasks/tasks.module';
+import { AuthModule } from './auth/auth.module';
+import { typeOrmConfig } from './config/typeorm.config';
 
 @Module({
   imports: [
@@ -18,7 +19,7 @@ import { GraphQLModule } from '@nestjs/graphql';
     }),
     TasksModule,
     TypeOrmModule.forRoot(typeOrmConfig),
-    AuthModule
+    AuthModule,
   ]
 })
 export class AppModule {}

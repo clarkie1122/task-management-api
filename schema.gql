@@ -3,8 +3,21 @@
 # !!!   DO NOT MODIFY THIS FILE BY YOURSELF   !!!
 # -----------------------------------------------
 
+input CreateTaskDto {
+  title: String!
+  description: String!
+  status: String!
+}
+
+type Mutation {
+  createTask(createTask: CreateTaskDto!): TaskDto!
+  removeTask(id: Float!): TaskDto!
+  updateTask(updateTask: UpdateTaskDto!): TaskDto!
+}
+
 type Query {
   tasks: [TaskDto!]!
+  task(id: Float!): TaskDto!
 }
 
 type TaskDto {
@@ -12,7 +25,7 @@ type TaskDto {
   title: String!
   description: String!
   status: String!
-  user: User!
+  user: UserDto!
 }
 
 input tasks {
@@ -23,6 +36,13 @@ input tasks {
   user: user!
 }
 
+input UpdateTaskDto {
+  id: Float!
+  title: String
+  description: String
+  status: String
+}
+
 input user {
   id: Int!
   username: String!
@@ -31,7 +51,7 @@ input user {
   tasks: [tasks!]!
 }
 
-type User {
+type UserDto {
   id: Int!
   username: String!
   password: String!

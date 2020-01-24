@@ -1,6 +1,6 @@
 import { createParamDecorator } from "@nestjs/common";
-import { User } from "./user.entity";
+import { UserEntity } from "@inteck/global-components";
 
-export const GetUser = createParamDecorator((data, [root, args, ctx, info]): User => {
+export const GetUser = createParamDecorator((data, [root, args, ctx, info]): UserEntity => {
     return ctx.req.user;
 });
